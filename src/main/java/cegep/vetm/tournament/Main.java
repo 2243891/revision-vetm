@@ -68,7 +68,7 @@ public class Main {
                     case "4" -> submitResultInteractive();
                     case "5" -> showRankingInteractive();
                     case "6" -> listTournaments();
-                    case "7" -> showMatchHistroy();
+                    case "7" -> showMatchHistory();
                     case "0" -> running = false;
                     default -> System.out.println("Unknown choice.");
                 }
@@ -159,7 +159,7 @@ public class Main {
         }
     }
 
-    private void showMatchHistroy() {
+    private void showMatchHistory() {
         String tournamentId = askTournamentId();
         System.out.print("Pseudo: ");
         String pseudo = scanner.nextLine().trim();
