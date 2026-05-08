@@ -151,7 +151,8 @@ public class Main {
         List<RankingService.RankingEntry> ranking = rankingService.computeRanking(tournament);
         int position = 1;
         for (RankingService.RankingEntry entry : ranking) {
-            System.out.println(position++ + ". " + entry.getPlayer().getPseudo() + " - " + entry.getWins() + " win(s)");
+            System.out.println(position++ + ". " + entry.getPlayer().getPseudo()
+                    + " - " + entry.getWins() + " win(s), " + entry.getPointsScored() + " point(s) scored");
         }
     }
 
