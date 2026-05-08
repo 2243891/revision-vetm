@@ -2,6 +2,7 @@ package cegep.vetm.tournament;
 
 import cegep.vetm.tournament.application.CloseRegistrationsUseCase;
 import cegep.vetm.tournament.application.CreateTournamentUseCase;
+import cegep.vetm.tournament.application.MatchHistoryService;
 import cegep.vetm.tournament.application.RankingService;
 import cegep.vetm.tournament.application.RegistrationUseCase;
 import cegep.vetm.tournament.application.SubmitMatchResultUseCase;
@@ -31,6 +32,7 @@ public class Main {
     private final CloseRegistrationsUseCase closeRegistrations = new CloseRegistrationsUseCase(tournamentRepository);
     private final SubmitMatchResultUseCase submitResult = new SubmitMatchResultUseCase(tournamentRepository);
     private final RankingService rankingService = new RankingService();
+    private final MatchHistoryService matchHistoryService = new MatchHistoryService();
 
     public static void main(String[] args) {
         new Main().run();
@@ -66,6 +68,7 @@ public class Main {
                     case "4" -> submitResultInteractive();
                     case "5" -> showRankingInteractive();
                     case "6" -> listTournaments();
+                    case "7" -> showMatchHistroy();
                     case "0" -> running = false;
                     default -> System.out.println("Unknown choice.");
                 }
@@ -84,6 +87,7 @@ public class Main {
         System.out.println("4. Submit match result");
         System.out.println("5. Show ranking");
         System.out.println("6. List tournaments");
+        System.out.println("7. Show match history for a player");
         System.out.println("0. Exit");
         System.out.print("> ");
     }
@@ -152,6 +156,17 @@ public class Main {
         int position = 1;
         for (RankingService.RankingEntry entry : ranking) {
             System.out.println(position++ + ". " + entry.getPlayer().getPseudo() + " - " + entry.getWins() + " win(s)");
+        }
+    }
+
+    private void showMatchHistroy() {
+        String tournamentId = askTournamentId();
+        System.out.print("Pseudo: ");
+        String pseudo = scanner.nextLine().trim();
+        Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+        var player = playerRepository.findByPseudo(pseudo).orElseThrow();
+        for (Match match : matchHistoryService.findCompletedMatchesFor(tournament, player)) {
+            System.out.println("  " + match.getId() + " - winner: " + match.getWinner().getPseudo());
         }
     }
 
