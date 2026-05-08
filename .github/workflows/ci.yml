@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9.6-eclipse-temurin-17
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile
+        run: mvn -B compile
