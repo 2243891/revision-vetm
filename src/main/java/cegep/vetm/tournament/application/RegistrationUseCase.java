@@ -2,6 +2,7 @@ package cegep.vetm.tournament.application;
 
 import cegep.vetm.tournament.domain.player.Player;
 import cegep.vetm.tournament.domain.player.PlayerRepository;
+import cegep.vetm.tournament.domain.player.PseudoValidator;
 import cegep.vetm.tournament.domain.player.exception.PlayerAlreadyExistsException;
 import cegep.vetm.tournament.domain.tournament.Tournament;
 import cegep.vetm.tournament.domain.tournament.TournamentRepository;
@@ -24,6 +25,7 @@ public class RegistrationUseCase {
         if (playerRepository.findByPseudo(pseudo).isPresent()) {
             throw new PlayerAlreadyExistsException(pseudo);
         }
+        PseudoValidator.validate(pseudo);
 
         Player player = new Player(playerId, pseudo);
         playerRepository.save(player);
