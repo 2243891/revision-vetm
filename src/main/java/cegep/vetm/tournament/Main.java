@@ -6,6 +6,7 @@ import cegep.vetm.tournament.application.RankingService;
 import cegep.vetm.tournament.application.RegistrationUseCase;
 import cegep.vetm.tournament.application.SubmitMatchResultUseCase;
 import cegep.vetm.tournament.domain.clock.Clock;
+import cegep.vetm.tournament.domain.notification.NotificationService;
 import cegep.vetm.tournament.domain.player.PlayerRepository;
 import cegep.vetm.tournament.domain.tournament.Match;
 import cegep.vetm.tournament.domain.tournament.Tournament;
@@ -13,6 +14,7 @@ import cegep.vetm.tournament.domain.tournament.TournamentRepository;
 import cegep.vetm.tournament.infrastructure.clock.SystemClock;
 import cegep.vetm.tournament.infrastructure.memory.InMemoryPlayerRepository;
 import cegep.vetm.tournament.infrastructure.memory.InMemoryTournamentRepository;
+import cegep.vetm.tournament.infrastructure.notification.ConsoleNotificationService;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,9 +27,10 @@ public class Main {
     private final PlayerRepository playerRepository = new InMemoryPlayerRepository();
     private final TournamentRepository tournamentRepository = new InMemoryTournamentRepository();
     private final Clock clock = new SystemClock();
+    private final NotificationService notificationService = new ConsoleNotificationService();
 
     private final CreateTournamentUseCase createTournament = new CreateTournamentUseCase(tournamentRepository, clock);
-    private final RegistrationUseCase registration = new RegistrationUseCase(playerRepository, tournamentRepository);
+    private final RegistrationUseCase registration = new RegistrationUseCase(playerRepository, tournamentRepository, notificationService);
     private final CloseRegistrationsUseCase closeRegistrations = new CloseRegistrationsUseCase(tournamentRepository);
     private final SubmitMatchResultUseCase submitResult = new SubmitMatchResultUseCase(tournamentRepository);
     private final RankingService rankingService = new RankingService();
