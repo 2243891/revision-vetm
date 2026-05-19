@@ -19,9 +19,7 @@ public class SubmitMatchResultUseCase {
         Tournament tournament = tournamentRepository.findById(tournamentId)
                 .orElseThrow(() -> new TournamentNotFoundException(tournamentId));
 
-        Match match = tournament.getMatches().stream()
-                .filter(m -> m.getId().equals(matchId))
-                .findFirst()
+        Match match = tournament.getMatches().stream().filter(m -> m.getId().equals(matchId)).findFirst()
                 .orElseThrow(() -> new MatchNotFoundException(matchId));
 
         match.setScore(new Score(playerOneScore, playerTwoScore));

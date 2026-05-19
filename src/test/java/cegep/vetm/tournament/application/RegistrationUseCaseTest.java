@@ -37,8 +37,9 @@ class RegistrationUseCaseTest {
     private RegistrationUseCase registrationUseCase;
 
     @BeforeEach
-    void setup(){
-        registrationUseCase = new RegistrationUseCase(playerRepositoryMock, tournamentRepositoryMock, notificationServiceMock);
+    void setup() {
+        registrationUseCase = new RegistrationUseCase(playerRepositoryMock, tournamentRepositoryMock,
+                notificationServiceMock);
 
     }
 

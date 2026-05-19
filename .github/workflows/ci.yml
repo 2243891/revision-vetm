@@ -14,3 +14,7 @@ jobs:
 
       - name: Compile
         run: mvn -B compile
+      - name : Test
+        run: mvn -B test
+      - name: Lint
+        run: mvn -B formatter:validate
