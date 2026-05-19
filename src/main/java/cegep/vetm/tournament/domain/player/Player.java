@@ -22,8 +22,10 @@ public class Player {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Player)) return false;
+        if (this == other)
+            return true;
+        if (!(other instanceof Player))
+            return false;
         Player player = (Player) other;
         return id.equals(player.id);
     }

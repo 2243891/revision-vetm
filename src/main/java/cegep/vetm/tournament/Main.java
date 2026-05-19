@@ -30,7 +30,8 @@ public class Main {
     private final NotificationService notificationService = new ConsoleNotificationService();
 
     private final CreateTournamentUseCase createTournament = new CreateTournamentUseCase(tournamentRepository, clock);
-    private final RegistrationUseCase registration = new RegistrationUseCase(playerRepository, tournamentRepository, notificationService);
+    private final RegistrationUseCase registration = new RegistrationUseCase(playerRepository, tournamentRepository,
+            notificationService);
     private final CloseRegistrationsUseCase closeRegistrations = new CloseRegistrationsUseCase(tournamentRepository);
     private final SubmitMatchResultUseCase submitResult = new SubmitMatchResultUseCase(tournamentRepository);
     private final RankingService rankingService = new RankingService();
@@ -63,14 +64,14 @@ public class Main {
             String choice = scanner.nextLine().trim();
             try {
                 switch (choice) {
-                    case "1" -> createTournamentInteractive();
-                    case "2" -> registerPlayerInteractive();
-                    case "3" -> closeRegistrationsInteractive();
-                    case "4" -> submitResultInteractive();
-                    case "5" -> showRankingInteractive();
-                    case "6" -> listTournaments();
-                    case "0" -> running = false;
-                    default -> System.out.println("Unknown choice.");
+                case "1" -> createTournamentInteractive();
+                case "2" -> registerPlayerInteractive();
+                case "3" -> closeRegistrationsInteractive();
+                case "4" -> submitResultInteractive();
+                case "5" -> showRankingInteractive();
+                case "6" -> listTournaments();
+                case "0" -> running = false;
+                default -> System.out.println("Unknown choice.");
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
@@ -101,8 +102,8 @@ public class Main {
         System.out.println("Available matches:");
         for (Match match : tournament.getMatches()) {
             String status = match.hasResult() ? "[done]" : "[pending]";
-            System.out.println("  " + match.getId() + " " + status + ": "
-                    + match.getPlayerOne().getPseudo() + " vs " + match.getPlayerTwo().getPseudo());
+            System.out.println("  " + match.getId() + " " + status + ": " + match.getPlayerOne().getPseudo() + " vs "
+                    + match.getPlayerTwo().getPseudo());
         }
         System.out.print("Match id: ");
         return scanner.nextLine().trim();
@@ -114,7 +115,8 @@ public class Main {
         System.out.print("Registration window (in minutes): ");
         long minutes = Long.parseLong(scanner.nextLine().trim());
         Tournament tournament = createTournament.create(name, Duration.ofMinutes(minutes));
-        System.out.println("Created tournament " + tournament.getId() + " - deadline: " + tournament.getRegistrationDeadline());
+        System.out.println(
+                "Created tournament " + tournament.getId() + " - deadline: " + tournament.getRegistrationDeadline());
     }
 
     private void registerPlayerInteractive() {
@@ -131,8 +133,8 @@ public class Main {
         System.out.println("Registrations closed. First-round matches generated.");
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
         for (Match match : tournament.getMatches()) {
-            System.out.println("  " + match.getId() + ": " + match.getPlayerOne().getPseudo()
-                    + " vs " + match.getPlayerTwo().getPseudo());
+            System.out.println("  " + match.getId() + ": " + match.getPlayerOne().getPseudo() + " vs "
+                    + match.getPlayerTwo().getPseudo());
         }
     }
 
@@ -161,7 +163,8 @@ public class Main {
     private void listTournaments() {
         System.out.println("Available tournaments:");
         for (Tournament tournament : tournamentRepository.findAll()) {
-            System.out.println("  " + tournament.getId() + " - " + tournament.getName() + " [" + tournament.getState() + "]");
+            System.out.println(
+                    "  " + tournament.getId() + " - " + tournament.getName() + " [" + tournament.getState() + "]");
         }
     }
 }

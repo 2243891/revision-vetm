@@ -7,7 +7,7 @@ public class ConsoleNotificationService implements NotificationService {
 
     @Override
     public void notifyRegistration(Player player, String tournamentName) {
-        System.out.println("[NOTIFICATION] " + player.getPseudo()
-                + " has been registered to tournament '" + tournamentName + "'.");
+        System.out.println("[NOTIFICATION] " + player.getPseudo() + " has been registered to tournament '"
+                + tournamentName + "'.");
     }
 }

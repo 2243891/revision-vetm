@@ -14,9 +14,8 @@ public class RegistrationUseCase {
     private final TournamentRepository tournamentRepository;
     private final NotificationService notificationService;
 
-    public RegistrationUseCase(PlayerRepository playerRepository,
-                               TournamentRepository tournamentRepository,
-                               NotificationService notificationService) {
+    public RegistrationUseCase(PlayerRepository playerRepository, TournamentRepository tournamentRepository,
+            NotificationService notificationService) {
         this.playerRepository = playerRepository;
         this.tournamentRepository = tournamentRepository;
         this.notificationService = notificationService;

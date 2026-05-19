@@ -25,9 +25,7 @@ public class InMemoryPlayerRepository implements PlayerRepository {
 
     @Override
     public Optional<Player> findByPseudo(String pseudo) {
-        return playersById.values().stream()
-                .filter(p -> p.getPseudo().equals(pseudo))
-                .findFirst();
+        return playersById.values().stream().filter(p -> p.getPseudo().equals(pseudo)).findFirst();
     }
 
     @Override

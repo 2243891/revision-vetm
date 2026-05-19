@@ -12,9 +12,7 @@ class PseudoValidatorTest {
     private final String TOO_SHORT_PASSWORD = "AB";
     private final String TOO_LONG_PASSWORD = "ABC1231414123213213123214512";
     private final String START_WITH_NUMBER = "1AVCWADa";
-    private final String VALID_PASSWORD= "AVCWA321Da_";
-
-
+    private final String VALID_PASSWORD = "AVCWA321Da_";
 
     @Test
     void givenPasswordWithATooShortLength_WhenValidate_ThenInvalidPseudoException() {
@@ -37,7 +35,6 @@ class PseudoValidatorTest {
         });
     }
 
-
     @Test
     void givenValidPassword_WhenValidate_ThenInvalidPseudoExceptionNotThrown() {
         assertDoesNotThrow(() -> {
@@ -46,7 +43,7 @@ class PseudoValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Alice", "bob_42", "Player_1","abc"})
+    @ValueSource(strings = { "Alice", "bob_42", "Player_1", "abc" })
     void givenValidPassword_WhenValidate_ThenInvalidPseudoExceptionNotThrown(String value) {
         assertDoesNotThrow(() -> {
             PseudoValidator.validate(VALID_PASSWORD);
